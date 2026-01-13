@@ -1,0 +1,232 @@
+import type { TrackerTemplate, Tracker, Expense } from '../types';
+
+// Pre-built templates
+export const templates: TrackerTemplate[] = [
+  {
+    id: 'tpl-1',
+    name: 'Daily Food Expenses',
+    category: 'Food',
+    frequency: 'daily',
+    suggestedFields: ['meal_type', 'location'],
+    icon: 'utensils',
+    color: '#10B981',
+  },
+  {
+    id: 'tpl-2',
+    name: 'Monthly Bills',
+    category: 'Bills',
+    frequency: 'monthly',
+    suggestedFields: ['bill_type', 'due_date'],
+    icon: 'receipt',
+    color: '#3B82F6',
+  },
+  {
+    id: 'tpl-3',
+    name: 'Farm Labor Expenses',
+    category: 'Agriculture',
+    frequency: 'seasonal',
+    suggestedFields: ['worker_name', 'task', 'season'],
+    icon: 'tractor',
+    color: '#F59E0B',
+  },
+  {
+    id: 'tpl-4',
+    name: 'Shopping',
+    category: 'Shopping',
+    frequency: 'weekly',
+    suggestedFields: [],
+    icon: 'shopping-bag',
+    color: '#EC4899',
+  },
+  {
+    id: 'tpl-5',
+    name: 'Transportation',
+    category: 'Transport',
+    frequency: 'daily',
+    suggestedFields: ['vehicle_type', 'distance'],
+    icon: 'car',
+    color: '#8B5CF6',
+  },
+];
+
+// User's active trackers (2-3 examples)
+export const trackers: Tracker[] = [
+  {
+    id: 'tr-1',
+    name: 'Daily Meals',
+    frequency: 'daily',
+    category: 'Food',
+    customFields: ['meal_type', 'restaurant'],
+    budgetLimit: 5000,
+    color: '#10B981',
+    icon: 'utensils',
+    createdAt: new Date('2024-01-01'),
+    isActive: true,
+  },
+  {
+    id: 'tr-2',
+    name: 'Household Bills',
+    frequency: 'monthly',
+    category: 'Bills',
+    customFields: ['bill_name'],
+    budgetLimit: 20000,
+    color: '#3B82F6',
+    icon: 'home',
+    createdAt: new Date('2024-01-01'),
+    isActive: true,
+  },
+  {
+    id: 'tr-3',
+    name: 'Farm Operations',
+    frequency: 'seasonal',
+    category: 'Agriculture',
+    customFields: ['operation_type', 'season', 'worker_count'],
+    budgetLimit: 50000,
+    color: '#F59E0B',
+    icon: 'leaf',
+    createdAt: new Date('2024-01-01'),
+    isActive: true,
+  },
+];
+
+// Sample expenses (15-20 entries across different trackers and dates)
+// Using 2026 dates to match current year
+export const expenses: Expense[] = [
+  // Daily food expenses - January 2026
+  {
+    id: 'e-1',
+    trackerId: 'tr-1',
+    amount: 150,
+    date: new Date('2026-01-10'),
+    description: 'Breakfast',
+    category: 'Food',
+    customFieldValues: { meal_type: 'Breakfast', restaurant: 'Home' },
+  },
+  {
+    id: 'e-2',
+    trackerId: 'tr-1',
+    amount: 250,
+    date: new Date('2026-01-10'),
+    description: 'Lunch',
+    category: 'Food',
+    customFieldValues: { meal_type: 'Lunch', restaurant: 'Office Cafeteria' },
+  },
+  {
+    id: 'e-3',
+    trackerId: 'tr-1',
+    amount: 400,
+    date: new Date('2026-01-11'),
+    description: 'Dinner',
+    category: 'Food',
+    customFieldValues: { meal_type: 'Dinner', restaurant: 'Restaurant' },
+  },
+  {
+    id: 'e-4',
+    trackerId: 'tr-1',
+    amount: 120,
+    date: new Date('2026-01-11'),
+    description: 'Snacks',
+    category: 'Food',
+  },
+  {
+    id: 'e-5',
+    trackerId: 'tr-1',
+    amount: 180,
+    date: new Date('2026-01-12'),
+    description: 'Breakfast',
+    category: 'Food',
+  },
+  
+  // Monthly bills - January 2026
+  {
+    id: 'e-6',
+    trackerId: 'tr-2',
+    amount: 12000,
+    date: new Date('2026-01-01'),
+    description: 'Rent',
+    category: 'Bills',
+    customFieldValues: { bill_name: 'House Rent' },
+  },
+  {
+    id: 'e-7',
+    trackerId: 'tr-2',
+    amount: 2500,
+    date: new Date('2026-01-05'),
+    description: 'Electricity',
+    category: 'Bills',
+    customFieldValues: { bill_name: 'Electricity Bill' },
+  },
+  {
+    id: 'e-8',
+    trackerId: 'tr-2',
+    amount: 800,
+    date: new Date('2026-01-05'),
+    description: 'Internet',
+    category: 'Bills',
+    customFieldValues: { bill_name: 'Broadband' },
+  },
+  {
+    id: 'e-9',
+    trackerId: 'tr-2',
+    amount: 500,
+    date: new Date('2026-01-07'),
+    description: 'Phone Bill',
+    category: 'Bills',
+  },
+  
+  // Farm operations - January 2026
+  {
+    id: 'e-10',
+    trackerId: 'tr-3',
+    amount: 15000,
+    date: new Date('2026-01-03'),
+    description: 'Labor for plowing',
+    category: 'Agriculture',
+    customFieldValues: { operation_type: 'Plowing', season: 'Winter', worker_count: '5' },
+  },
+  {
+    id: 'e-11',
+    trackerId: 'tr-3',
+    amount: 8000,
+    date: new Date('2026-01-08'),
+    description: 'Seeds purchase',
+    category: 'Agriculture',
+    customFieldValues: { operation_type: 'Seeds', season: 'Winter' },
+  },
+  {
+    id: 'e-12',
+    trackerId: 'tr-3',
+    amount: 5000,
+    date: new Date('2026-01-09'),
+    description: 'Fertilizer',
+    category: 'Agriculture',
+    customFieldValues: { operation_type: 'Fertilizer', season: 'Winter' },
+  },
+  
+  // Previous month data - December 2025
+  {
+    id: 'e-13',
+    trackerId: 'tr-1',
+    amount: 3500,
+    date: new Date('2025-12-15'),
+    description: 'December food expenses',
+    category: 'Food',
+  },
+  {
+    id: 'e-14',
+    trackerId: 'tr-2',
+    amount: 15000,
+    date: new Date('2025-12-05'),
+    description: 'December bills',
+    category: 'Bills',
+  },
+  {
+    id: 'e-15',
+    trackerId: 'tr-3',
+    amount: 20000,
+    date: new Date('2025-12-10'),
+    description: 'December farm operations',
+    category: 'Agriculture',
+  },
+];
+
