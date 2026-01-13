@@ -1,6 +1,9 @@
 import { Plus, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '../common/Button';
+import { useAuthStore } from '../../context/AuthContext';
+import UserMenu from '../auth/UserMenu';
+import GoogleLogin from '../auth/GoogleLogin';
 
 interface NavbarProps {
   onQuickAdd?: () => void;
@@ -8,6 +11,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
+  const { isAuthenticated } = useAuthStore();
+  
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-40">
       <div className="px-4 sm:px-6 lg:px-8">
@@ -33,7 +38,7 @@ export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
           
           {/* Right side */}
           <div className="flex items-center gap-3">
-            {onQuickAdd && (
+            {isAuthenticated && onQuickAdd && (
               <Button
                 onClick={onQuickAdd}
                 size="sm"
@@ -43,9 +48,11 @@ export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
                 <span className="hidden xs:inline sm:inline">Quick Add</span>
               </Button>
             )}
-            <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center">
-              <span className="text-primary-600 font-semibold text-sm">U</span>
-            </div>
+            {isAuthenticated ? (
+              <UserMenu />
+            ) : (
+              <GoogleLogin />
+            )}
           </div>
         </div>
       </div>
