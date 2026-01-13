@@ -35,13 +35,26 @@ VITE_GOOGLE_CLIENT_ID=your-client-id-here.apps.googleusercontent.com
 
 ### For Vercel Deployment
 
-1. Go to your Vercel project settings
-2. Navigate to **Environment Variables**
-3. Add a new variable:
-   - **Name**: `VITE_GOOGLE_CLIENT_ID`
-   - **Value**: Your Google Client ID
-   - **Environment**: Production, Preview, Development (select all)
-4. Redeploy your application
+1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
+2. Select your project
+3. Click on **Settings** tab
+4. Click on **Environment Variables** in the left sidebar
+5. Click **Add New** button
+6. Fill in the form:
+   - **Key**: `VITE_GOOGLE_CLIENT_ID` (must be exactly this, including the `VITE_` prefix)
+   - **Value**: Paste your Google Client ID (e.g., `xxxxx.apps.googleusercontent.com`)
+   - **Environment**: 
+     - ✅ Production
+     - ✅ Preview  
+     - ✅ Development
+   - Click **Save**
+7. **Important**: After adding the variable, you MUST redeploy:
+   - Go to **Deployments** tab
+   - Click the three dots (⋯) on the latest deployment
+   - Click **Redeploy**
+   - Or push a new commit to trigger a new deployment
+
+**Note**: Environment variables are only available after a new deployment. Simply adding them won't update existing deployments.
 
 ## Step 3: Test the Integration
 
