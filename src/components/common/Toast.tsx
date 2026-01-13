@@ -58,7 +58,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
+      <div className="fixed top-4 right-2 sm:right-4 left-2 sm:left-auto z-50 flex flex-col gap-2 max-w-md sm:max-w-none">
         {toasts.map((toast) => {
           const Icon = icons[toast.type];
           return (
@@ -66,16 +66,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               key={toast.id}
               className={`
                 flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg
-                min-w-[300px] max-w-md
+                w-full sm:min-w-[300px] sm:max-w-md
                 ${styles[toast.type]}
                 animate-in slide-in-from-right
               `}
             >
               <Icon className="w-5 h-5 flex-shrink-0" />
-              <p className="flex-1 text-sm font-medium">{toast.message}</p>
+              <p className="flex-1 text-sm font-medium break-words">{toast.message}</p>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="flex-shrink-0 p-1 rounded hover:bg-black/10 transition-colors"
+                className="flex-shrink-0 p-2 rounded hover:bg-black/10 active:bg-black/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Close"
               >
                 <X className="w-4 h-4" />

@@ -47,7 +47,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             <span className="text-lg font-semibold">Menu</span>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -66,10 +66,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                   to={item.path}
                   onClick={onClose}
                   className={`
-                    flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                    flex items-center gap-3 px-4 py-3 rounded-lg transition-colors touch-manipulation
+                    min-h-[44px]
                     ${active
                       ? 'bg-primary-50 text-primary-700 font-medium'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'
                     }
                   `}
                 >

@@ -16,7 +16,7 @@ export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
           <div className="flex items-center gap-4">
             <button
               onClick={onMenuClick}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation"
               aria-label="Toggle menu"
             >
               <Menu className="w-6 h-6 text-gray-600" />
@@ -37,10 +37,10 @@ export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
               <Button
                 onClick={onQuickAdd}
                 size="sm"
-                className="flex items-center gap-2"
+                className="flex items-center gap-1 sm:gap-2 touch-manipulation"
               >
-                <Plus className="w-4 h-4" />
-                <span className="hidden sm:inline">Quick Add</span>
+                <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden xs:inline sm:inline">Quick Add</span>
               </Button>
             )}
             <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center">

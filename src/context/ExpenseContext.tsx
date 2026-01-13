@@ -10,7 +10,7 @@ import {
   savePreferences,
   loadPreferences,
 } from '../utils/storage';
-import { templates as defaultTemplates, trackers as defaultTrackers, expenses as defaultExpenses } from '../utils/dummyData';
+import { templates as defaultTemplates } from '../utils/dummyData';
 
 interface ExpenseState {
   // State
@@ -49,34 +49,21 @@ export const useExpenseStore = create<ExpenseState>((set, get) => ({
     dateFormat: 'DD/MM/YYYY',
   },
   
-  // Initialize from localStorage or use dummy data
+  // Initialize from localStorage - start fresh with no dummy data
   initialize: () => {
     const savedTrackers = loadTrackers();
     const savedExpenses = loadExpenses();
     const savedTemplates = loadTemplates();
     const savedPreferences = loadPreferences();
     
-    // If no data exists, use dummy data
-    if (savedTrackers.length === 0 && savedExpenses.length === 0) {
-      // Save dummy data
-      saveTrackers(defaultTrackers);
-      saveExpenses(defaultExpenses);
-      saveTemplates(defaultTemplates);
-      
-      set({
-        trackers: defaultTrackers,
-        expenses: defaultExpenses,
-        templates: defaultTemplates,
-        preferences: savedPreferences,
-      });
-    } else {
-      set({
-        trackers: savedTrackers,
-        expenses: savedExpenses,
-        templates: savedTemplates.length > 0 ? savedTemplates : defaultTemplates,
-        preferences: savedPreferences,
-      });
-    }
+    // Use saved data or start with empty arrays
+    // Templates are always available as defaults (not saved unless user creates custom ones)
+    set({
+      trackers: savedTrackers,
+      expenses: savedExpenses,
+      templates: savedTemplates.length > 0 ? savedTemplates : defaultTemplates,
+      preferences: savedPreferences,
+    });
   },
   
   // Tracker actions

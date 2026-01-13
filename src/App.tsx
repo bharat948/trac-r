@@ -36,9 +36,9 @@ function AppContent() {
         onQuickAdd={() => setIsQuickAddOpen(true)}
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
       />
-      <div className="flex">
+      <div className="flex relative">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="flex-1 p-6 lg:ml-0">
+        <main className="flex-1 p-4 sm:p-6 lg:ml-0 w-full min-w-0">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/trackers" element={<Trackers />} />

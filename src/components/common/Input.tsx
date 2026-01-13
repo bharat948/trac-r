@@ -20,9 +20,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={`
-            w-full px-4 py-2 border rounded-lg
+            w-full px-4 py-2.5 border rounded-lg text-base
             focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent
-            transition-all duration-200
+            transition-all duration-200 touch-manipulation
             ${error ? 'border-danger-500' : 'border-gray-300'}
             ${className}
           `}

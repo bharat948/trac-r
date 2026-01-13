@@ -68,7 +68,10 @@ export default function Trackers() {
           <h1 className="text-2xl font-bold text-gray-900">Trackers</h1>
           <p className="text-gray-600 mt-1">Manage your expense trackers</p>
         </div>
-        <Button onClick={() => setIsAddExpenseOpen(true)}>
+        <Button 
+          onClick={() => setIsAddExpenseOpen(true)}
+          className="w-full sm:w-auto touch-manipulation"
+        >
           Quick Add Expense
         </Button>
       </div>
@@ -80,7 +83,7 @@ export default function Trackers() {
           placeholder="Search trackers..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full sm:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="w-full sm:w-64 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-base touch-manipulation"
         />
       </div>
       

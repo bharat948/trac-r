@@ -105,7 +105,7 @@ export default function ExpenseHistory() {
               placeholder="Search by description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-base touch-manipulation"
             />
           </div>
           
@@ -116,7 +116,7 @@ export default function ExpenseHistory() {
             <select
               value={selectedTracker}
               onChange={(e) => setSelectedTracker(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-base touch-manipulation"
             >
               <option value="">All Trackers</option>
               {trackers.filter(t => t.isActive).map((tracker) => (
@@ -135,7 +135,7 @@ export default function ExpenseHistory() {
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-base touch-manipulation"
             />
           </div>
           
@@ -147,7 +147,7 @@ export default function ExpenseHistory() {
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-base touch-manipulation"
             />
           </div>
           
@@ -160,7 +160,7 @@ export default function ExpenseHistory() {
               placeholder="0"
               value={amountMin}
               onChange={(e) => setAmountMin(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-base touch-manipulation"
             />
           </div>
           
@@ -173,7 +173,7 @@ export default function ExpenseHistory() {
               placeholder="0"
               value={amountMax}
               onChange={(e) => setAmountMax(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-base touch-manipulation"
             />
           </div>
         </div>
@@ -181,61 +181,66 @@ export default function ExpenseHistory() {
       
       {/* Expenses Table */}
       <Card padding="none">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Date
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Tracker
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Description
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Amount
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Category
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
+        <div className="overflow-x-auto -mx-4 sm:mx-0">
+          <div className="inline-block min-w-full align-middle">
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50 border-b">
+                  <tr>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Date
+                    </th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
+                      Tracker
+                    </th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Description
+                    </th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Amount
+                    </th>
+                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                      Category
+                    </th>
+                    <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredExpenses.length > 0 ? (
                 filteredExpenses.map((expense) => (
                   <tr key={expense.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {formatDate(expense.date, preferences.dateFormat)}
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <div className="flex flex-col">
+                        <span>{formatDate(expense.date, preferences.dateFormat)}</span>
+                        <span className="text-xs text-gray-500 sm:hidden">{getTrackerName(expense.trackerId)}</span>
+                      </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-600 hidden sm:table-cell">
                       {getTrackerName(expense.trackerId)}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">
+                    <td className="px-3 sm:px-6 py-4 text-sm text-gray-900 max-w-xs truncate">
                       {expense.description}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                       {formatCurrency(expense.amount, preferences.currency)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
                       {expense.category || '-'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex items-center justify-end gap-1 sm:gap-2">
                         <button
                           onClick={() => handleEdit(expense)}
-                          className="p-2 rounded-lg hover:bg-primary-50 transition-colors"
+                          className="p-2 rounded-lg hover:bg-primary-50 active:bg-primary-100 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
                           aria-label="Edit expense"
                         >
                           <Edit className="w-4 h-4 text-primary-600" />
                         </button>
                         <button
                           onClick={() => handleDelete(expense.id)}
-                          className="p-2 rounded-lg hover:bg-danger-50 transition-colors"
+                          className="p-2 rounded-lg hover:bg-danger-50 active:bg-danger-100 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
                           aria-label="Delete expense"
                         >
                           <Trash2 className="w-4 h-4 text-danger-500" />
@@ -246,13 +251,15 @@ export default function ExpenseHistory() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={6} className="px-3 sm:px-6 py-12 text-center text-gray-500">
                     No expenses found
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
+            </div>
+          </div>
         </div>
       </Card>
       

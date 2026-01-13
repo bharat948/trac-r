@@ -20,10 +20,11 @@ export default function TemplateSelector({
         <div
           key={template.id}
           onClick={() => onSelect(template)}
+          className="touch-manipulation"
         >
           <Card
             hover
-            className="cursor-pointer"
+            className="cursor-pointer min-h-[80px]"
           >
           <div className="flex items-center gap-4">
             <div

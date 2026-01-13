@@ -52,14 +52,14 @@ export default function TrackerCard({
         <div className="flex items-center gap-1">
           <button
             onClick={() => onEdit(tracker)}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Edit tracker"
           >
             <Edit className="w-4 h-4 text-gray-600" />
           </button>
           <button
             onClick={() => onDelete(tracker.id)}
-            className="p-2 rounded-lg hover:bg-danger-50 transition-colors"
+            className="p-2 rounded-lg hover:bg-danger-50 active:bg-danger-100 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Delete tracker"
           >
             <Trash2 className="w-4 h-4 text-danger-500" />
