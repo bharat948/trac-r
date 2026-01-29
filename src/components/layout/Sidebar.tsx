@@ -1,4 +1,7 @@
-import { Link, useLocation } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Tag, History, Plus, X } from 'lucide-react';
 
 interface SidebarProps {
@@ -7,21 +10,21 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
-  const location = useLocation();
-  
+  const pathname = usePathname();
+
   const navItems = [
     { path: '/', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/trackers', label: 'Trackers', icon: Tag },
     { path: '/history', label: 'History', icon: History },
   ];
-  
+
   const isActive = (path: string) => {
     if (path === '/') {
-      return location.pathname === '/';
+      return pathname === '/';
     }
-    return location.pathname.startsWith(path);
+    return pathname.startsWith(path);
   };
-  
+
   return (
     <>
       {/* Overlay for mobile */}
@@ -31,7 +34,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           onClick={onClose}
         />
       )}
-      
+
       {/* Sidebar */}
       <aside
         className={`
@@ -53,17 +56,17 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               <X className="w-5 h-5" />
             </button>
           </div>
-          
+
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;
               const active = isActive(item.path);
-              
+
               return (
                 <Link
                   key={item.path}
-                  to={item.path}
+                  href={item.path}
                   onClick={onClose}
                   className={`
                     flex items-center gap-3 px-4 py-3 rounded-lg transition-colors touch-manipulation
@@ -80,11 +83,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               );
             })}
           </nav>
-          
+
           {/* Create Tracker Button */}
           <div className="p-4 border-t">
             <Link
-              to="/create-tracker"
+              href="/trackers/create"
               onClick={onClose}
               className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-500 text-white hover:bg-primary-600 transition-colors font-medium"
             >
@@ -97,4 +100,3 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     </>
   );
 }
-

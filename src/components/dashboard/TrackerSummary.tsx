@@ -1,5 +1,6 @@
+'use client';
+
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { useExpenseStore } from '../../context/ExpenseContext';
 import Card from '../common/Card';
 import { getTrackerBreakdown } from '../../utils/calculations';
 import { formatCurrency } from '../../utils/dateHelpers';
@@ -8,32 +9,36 @@ import { startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
 interface TrackerSummaryProps {
   selectedMonth: number;
   selectedYear: number;
+  expenses: any[];
+  trackers: any[];
 }
 
 export default function TrackerSummary({
   selectedMonth,
   selectedYear,
+  expenses,
+  trackers,
 }: TrackerSummaryProps) {
-  const { expenses, trackers, preferences } = useExpenseStore();
-  
+  const preferences = { currency: 'INR' }; // Temporary
+
   const monthStart = startOfMonth(new Date(selectedYear, selectedMonth));
   const monthEnd = endOfMonth(new Date(selectedYear, selectedMonth));
-  
+
   const monthExpenses = expenses.filter(e => {
     const expenseDate = new Date(e.date);
     return isWithinInterval(expenseDate, { start: monthStart, end: monthEnd });
   });
-  
+
   const breakdown = getTrackerBreakdown(monthExpenses, trackers);
-  
+
   const chartData = breakdown.map(item => ({
     name: item.trackerName,
     value: item.total,
     color: item.color,
   }));
-  
+
   const COLORS = breakdown.map(item => item.color);
-  
+
   return (
     <Card>
       <h3 className="text-lg font-semibold mb-4">Expenses by Tracker</h3>
@@ -56,16 +61,16 @@ export default function TrackerSummary({
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value: number | undefined) => 
+                formatter={(value: number | undefined) =>
                   value ? formatCurrency(value, preferences.currency) : ''
                 }
               />
             </PieChart>
           </ResponsiveContainer>
-          
+
           <div className="space-y-3">
-            {breakdown.map((item) => (
-              <div key={item.trackerId} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            {breakdown.map((item, idx) => (
+              <div key={item.trackerId || `tracker-breakdown-${idx}`} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <div
                     className="w-4 h-4 rounded-full"

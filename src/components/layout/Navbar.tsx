@@ -1,9 +1,11 @@
+'use client';
+
 import { Plus, Menu } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Button from '../common/Button';
-import { useAuthStore } from '../../context/AuthContext';
-import UserMenu from '../auth/UserMenu';
-import GoogleLogin from '../auth/GoogleLogin';
+// import { useAuthStore } from '../../context/AuthContext';
+// import UserMenu from '../auth/UserMenu';
+// import GoogleLogin from '../auth/GoogleLogin';
 
 interface NavbarProps {
   onQuickAdd?: () => void;
@@ -11,8 +13,9 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
-  const { isAuthenticated } = useAuthStore();
-  
+  // const { isAuthenticated } = useAuthStore();
+  const isAuthenticated = true; // Temporary
+
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-40">
       <div className="px-4 sm:px-6 lg:px-8">
@@ -26,7 +29,7 @@ export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
             >
               <Menu className="w-6 h-6 text-gray-600" />
             </button>
-            <Link to="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">E</span>
               </div>
@@ -35,7 +38,7 @@ export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
               </span>
             </Link>
           </div>
-          
+
           {/* Right side */}
           <div className="flex items-center gap-3">
             {isAuthenticated && onQuickAdd && (
@@ -48,15 +51,14 @@ export default function Navbar({ onQuickAdd, onMenuClick }: NavbarProps) {
                 <span className="hidden xs:inline sm:inline">Quick Add</span>
               </Button>
             )}
-            {isAuthenticated ? (
+            {/* {isAuthenticated ? (
               <UserMenu />
             ) : (
               <GoogleLogin />
-            )}
+            )} */}
           </div>
         </div>
       </div>
     </nav>
   );
 }
-

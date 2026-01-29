@@ -1,6 +1,7 @@
+'use client';
+
 import { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { useExpenseStore } from '../../context/ExpenseContext';
 import Card from '../common/Card';
 import { formatCurrency } from '../../utils/dateHelpers';
 import { startOfMonth, endOfMonth, eachDayOfInterval, format } from 'date-fns';
@@ -8,19 +9,21 @@ import { startOfMonth, endOfMonth, eachDayOfInterval, format } from 'date-fns';
 interface ExpenseChartProps {
   selectedMonth: number;
   selectedYear: number;
+  expenses: any[];
 }
 
 export default function ExpenseChart({
   selectedMonth,
   selectedYear,
+  expenses,
 }: ExpenseChartProps) {
-  const { expenses, preferences } = useExpenseStore();
-  
+  const preferences = { currency: 'INR' }; // Temporary
+
   const chartData = useMemo(() => {
     const monthStart = startOfMonth(new Date(selectedYear, selectedMonth));
     const monthEnd = endOfMonth(new Date(selectedYear, selectedMonth));
     const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
-    
+
     return days.map(day => {
       const dayExpenses = expenses.filter(e => {
         const expenseDate = new Date(e.date);
@@ -30,16 +33,16 @@ export default function ExpenseChart({
           expenseDate.getFullYear() === day.getFullYear()
         );
       });
-      
+
       const total = dayExpenses.reduce((sum, e) => sum + e.amount, 0);
-      
+
       return {
         date: format(day, 'MMM dd'),
         amount: total,
       };
     });
   }, [expenses, selectedMonth, selectedYear]);
-  
+
   return (
     <Card>
       <h3 className="text-lg font-semibold mb-4">Expenses Over Time</h3>
@@ -49,7 +52,7 @@ export default function ExpenseChart({
           <XAxis dataKey="date" />
           <YAxis />
           <Tooltip
-            formatter={(value: number | undefined) => 
+            formatter={(value: number | undefined) =>
               value ? formatCurrency(value, preferences.currency) : ''
             }
           />

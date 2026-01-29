@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import { X } from 'lucide-react';
@@ -25,37 +27,37 @@ export default function Modal({
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
-  
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       }
     };
-    
+
     if (isOpen) {
       window.addEventListener('keydown', handleEscape);
     }
-    
+
     return () => {
       window.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen, onClose]);
-  
+
   if (!isOpen) return null;
-  
+
   const sizeStyles = {
     sm: 'max-w-md',
     md: 'max-w-lg',
     lg: 'max-w-2xl',
     xl: 'max-w-4xl',
   };
-  
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center sm:items-center"
@@ -63,7 +65,7 @@ export default function Modal({
     >
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
-      
+
       {/* Modal */}
       <div
         className={`
@@ -88,10 +90,10 @@ export default function Modal({
             </button>
           </div>
         )}
-        
+
         {/* Content */}
         <div className="p-4 sm:p-6 flex-1 overflow-y-auto">{children}</div>
-        
+
         {/* Footer */}
         {footer && (
           <div className="flex items-center justify-end gap-3 p-4 sm:p-6 border-t sticky bottom-0 bg-white z-10">
