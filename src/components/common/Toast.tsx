@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { createContext, useContext, useState, useCallback } from 'react';
 import { CheckCircle, XCircle, AlertCircle, Info, X } from 'lucide-react';
@@ -26,35 +28,35 @@ export function useToast() {
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
-  
+
   const showToast = useCallback((message: string, type: ToastType = 'info') => {
     const id = Math.random().toString(36).substring(7);
     setToasts((prev) => [...prev, { id, message, type }]);
-    
+
     // Auto remove after 3 seconds
     setTimeout(() => {
       setToasts((prev) => prev.filter((toast) => toast.id !== id));
     }, 3000);
   }, []);
-  
+
   const removeToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
-  
+
   const icons = {
     success: CheckCircle,
     error: XCircle,
     warning: AlertCircle,
     info: Info,
   };
-  
+
   const styles = {
     success: 'bg-success-50 border-success-200 text-success-800',
     error: 'bg-danger-50 border-danger-200 text-danger-800',
     warning: 'bg-warning-50 border-warning-200 text-warning-800',
     info: 'bg-primary-50 border-primary-200 text-primary-800',
   };
-  
+
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import type { Tracker, TrackerTemplate, Frequency } from '../../types';
 import Input from '../common/Input';
@@ -29,15 +31,15 @@ export default function TrackerForm({
     customFields: tracker?.customFields || template?.suggestedFields || [],
     isActive: tracker?.isActive ?? true,
   });
-  
+
   const [newField, setNewField] = useState('');
-  
+
   const handleSubmit = () => {
     if (!formData.name.trim()) {
       alert('Please enter a tracker name');
       return;
     }
-    
+
     onSubmit({
       name: formData.name,
       frequency: formData.frequency,
@@ -49,7 +51,7 @@ export default function TrackerForm({
       isActive: formData.isActive,
     });
   };
-  
+
   const addCustomField = () => {
     if (newField.trim() && !formData.customFields.includes(newField.trim())) {
       setFormData({
@@ -59,14 +61,14 @@ export default function TrackerForm({
       setNewField('');
     }
   };
-  
+
   const removeCustomField = (field: string) => {
     setFormData({
       ...formData,
       customFields: formData.customFields.filter(f => f !== field),
     });
   };
-  
+
   return (
     <div className="space-y-6">
       {step === 1 && (
@@ -115,7 +117,7 @@ export default function TrackerForm({
           </div>
         </>
       )}
-      
+
       {step === 2 && (
         <>
           <div>
@@ -158,7 +160,7 @@ export default function TrackerForm({
           </div>
         </>
       )}
-      
+
       {step === 3 && (
         <>
           <div>

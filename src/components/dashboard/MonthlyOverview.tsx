@@ -1,4 +1,5 @@
-import { useExpenseStore } from '../../context/ExpenseContext';
+'use client';
+
 import Card from '../common/Card';
 import { getTodayExpenses, getWeekExpenses, getMonthExpenses, calculateMonthlyTotal } from '../../utils/calculations';
 import { formatCurrency } from '../../utils/dateHelpers';
@@ -6,18 +7,20 @@ import { formatCurrency } from '../../utils/dateHelpers';
 interface MonthlyOverviewProps {
   selectedMonth: number;
   selectedYear: number;
+  expenses: any[];
 }
 
 export default function MonthlyOverview({
   selectedMonth,
   selectedYear,
+  expenses,
 }: MonthlyOverviewProps) {
-  const { expenses, preferences } = useExpenseStore();
+  const preferences = { currency: 'INR' }; // Temporary
   const monthlyTotal = calculateMonthlyTotal(expenses, selectedMonth, selectedYear);
   const todayExpenses = getTodayExpenses(expenses);
   const weekExpenses = getWeekExpenses(expenses);
   const monthExpenses = getMonthExpenses(expenses);
-  
+
   const stats = [
     {
       label: 'Today',
@@ -40,7 +43,7 @@ export default function MonthlyOverview({
       color: 'text-gray-900',
     },
   ];
-  
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat) => (

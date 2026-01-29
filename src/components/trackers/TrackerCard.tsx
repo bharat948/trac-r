@@ -3,14 +3,15 @@ import type { Tracker } from '../../types';
 import Card from '../common/Card';
 import Button from '../common/Button';
 import { getTrackerMonthExpenses } from '../../utils/calculations';
-import { useExpenseStore } from '../../context/ExpenseContext';
 import { formatCurrency } from '../../utils/dateHelpers';
 
 interface TrackerCardProps {
-  tracker: Tracker;
-  onEdit: (tracker: Tracker) => void;
+  tracker: any;
+  onEdit: (tracker: any) => void;
   onDelete: (id: string) => void;
   onAddExpense: (trackerId: string) => void;
+  preferences: { currency: string };
+  expenses: any[];
 }
 
 export default function TrackerCard({
@@ -18,21 +19,22 @@ export default function TrackerCard({
   onEdit,
   onDelete,
   onAddExpense,
+  preferences,
+  expenses,
 }: TrackerCardProps) {
-  const { expenses, preferences } = useExpenseStore();
-  const monthExpenses = getTrackerMonthExpenses(tracker.id, expenses);
-  
+  const monthExpenses = getTrackerMonthExpenses(tracker._id || tracker.id, expenses);
+
   // Calculate budget progress based on current month expenses only
-  const progress = tracker.budgetLimit 
-    ? (monthExpenses / tracker.budgetLimit) * 100 
+  const progress = tracker.budgetLimit
+    ? (monthExpenses / tracker.budgetLimit) * 100
     : 0;
-  
+
   const getIcon = (iconName: string) => {
     // In a real app, you'd map icon names to actual icons
     // For now, we'll use a simple emoji or letter
     return iconName.charAt(0).toUpperCase();
   };
-  
+
   return (
     <Card hover className="relative">
       {/* Header */}
@@ -66,7 +68,7 @@ export default function TrackerCard({
           </button>
         </div>
       </div>
-      
+
       {/* Stats */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
@@ -85,13 +87,12 @@ export default function TrackerCard({
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
-                className={`h-2 rounded-full transition-all ${
-                  progress > 100
+                className={`h-2 rounded-full transition-all ${progress > 100
                     ? 'bg-danger-500'
                     : progress > 80
-                    ? 'bg-warning-500'
-                    : 'bg-success-500'
-                }`}
+                      ? 'bg-warning-500'
+                      : 'bg-success-500'
+                  }`}
                 style={{ width: `${Math.min(progress, 100)}%` }}
               />
             </div>
@@ -106,7 +107,7 @@ export default function TrackerCard({
           </>
         )}
       </div>
-      
+
       {/* Actions */}
       <Button
         onClick={() => onAddExpense(tracker.id)}
